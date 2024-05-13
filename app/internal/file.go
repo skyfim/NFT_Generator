@@ -1,26 +1,21 @@
 package internal
 
 import (
-	"image"
-	"image/png"
 	"log"
 	"os"
 )
 
-func LoadImage(filePath string) (image.Image, error) {
-	f, err := os.Open(filePath)
+func LoadImages(filePath string) []string {
+	files, err := os.ReadDir(filePath)
 	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-	image, err := png.Decode(f)
-	return image, err
-}
-
-func SaveImage(filepath string, picture image.Image) {
-	f, err := os.Create(filepath + `image.png`)
-	if err != nil {
+		log.SetPrefix(`loadimages func dead`)
 		log.Fatal(err)
 	}
-	png.Encode(f, picture)
+
+	var fileSlice []string
+
+	for _, fileName := range files {
+		fileSlice = append(fileSlice, fileName.Name())
+	}
+	return fileSlice
 }

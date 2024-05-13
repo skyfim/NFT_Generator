@@ -3,13 +3,9 @@ package main
 import (
 	"app/config"
 	"app/internal"
-	"log"
+	"fmt"
 )
 
 func main() {
-	image, err := internal.LoadImage(config.PathToAsset)
-	if err != nil {
-		log.Fatal(err)
-	}
-	internal.SaveImage(config.PathToSave, image)
+	fmt.Println(internal.LoadImages(config.PathToBody))
 }
